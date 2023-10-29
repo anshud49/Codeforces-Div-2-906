@@ -1,0 +1,92 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        int n;
+        cin >> n;
+        string str;
+        cin >> str;
+
+        bool b1 = true;
+        int s = 0, e = n - 1;
+        while (s < e)
+        {
+            if (str[s] == str[e])
+            {
+                b1 = false;
+                break;
+            }
+            s++;
+            e--;
+        }
+
+        if (n & 1)
+        {
+            cout << -1 << endl;
+            continue;
+        }
+
+        if (b1)
+        {
+            cout << 0 << endl;
+            continue;
+        }
+
+        bool b = true;
+        vector<int> ans;
+        string t = "01";
+        int op = 0;
+        s = 0, e = n - 1;
+        while (s < e)
+        {
+            if (str[s] == str[e])
+            {
+
+                if (str[s] == '1')
+                {
+                    op++;
+                    ans.push_back(s);
+                    str.insert(s, t);
+                    e += 2;
+                    
+                }
+                else
+                {
+                    op++;
+                    ans.push_back(e + 1);
+                    str.insert(e + 1, t);
+                    e += 2;
+                }
+
+                if (op > 300)
+                {
+                    b = false;
+                    break;
+                }
+            }
+          
+            s++;
+            e--;
+        }
+
+        if (b)
+        {
+            cout << op << endl;
+            for (auto i : ans)
+            { 
+                cout << i << " ";
+            }
+            cout << endl;
+        }
+        else
+            cout << -1 << endl;
+    }
+    return 0;
+}
